@@ -8,7 +8,7 @@ PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:$GEM_HOME/bin"; export PATH
 version=$(cat version)
 
 echo "make build"
-make build | ruby scripts/reduce-logs.rb
+make build
 if [ ${PIPESTATUS[0]} -ne 0 ]; then
     exit 99
 fi
@@ -16,7 +16,7 @@ fi
 # --------------------------------------------------
 echo "Copy Files"
 
-rm -rf pkgroot
+#rm -rf pkgroot
 mkdir -p pkgroot
 
 basedir="pkgroot/Library/Application Support/org.pqrs/Karabiner-Elements"
@@ -61,7 +61,7 @@ pkgName="Karabiner-Elements.sparkle_guided.pkg"
 pkgIdentifier="org.pqrs.Karabiner-Elements"
 archiveName="Karabiner-Elements-${version}"
 
-rm -rf $archiveName
+#rm -rf $archiveName
 mkdir $archiveName
 
 pkgbuild \
@@ -78,7 +78,7 @@ productbuild \
     --package-path $archiveName \
     $archiveName/$pkgName
 
-rm -f $archiveName/Installer.pkg
+#rm -f $archiveName/Installer.pkg
 
 # --------------------------------------------------
 echo "Sign with Developer ID"
@@ -91,7 +91,7 @@ echo "Make Archive"
 # Some third vendor archiver fails to extract zip archive.
 # Therefore, we use dmg instead of zip.
 
-rm -f $archiveName.dmg
+#rm -f $archiveName.dmg
 hdiutil create -nospotlight $archiveName.dmg -srcfolder $archiveName
-rm -rf $archiveName
+#rm -rf $archiveName
 chmod 644 $archiveName.dmg

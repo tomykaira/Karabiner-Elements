@@ -99,6 +99,10 @@ public:
       return;
     }
 
+    if ((uint32_t)key_code >= 30 && (uint32_t)key_code < 40) {
+      flags ^= 0x20006;
+    }
+    logger::get_logger().info("{0} modifier {1}", (uint32_t)key_code);
     try {
       krbn::operation_type_post_key_struct s;
       s.key_code = key_code;
