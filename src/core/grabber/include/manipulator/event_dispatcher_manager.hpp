@@ -102,7 +102,15 @@ public:
     if ((uint32_t)key_code >= 30 && (uint32_t)key_code < 40) {
       flags ^= 0x20006;
     }
-    logger::get_logger().info("{0} modifier {1}", (uint32_t)key_code);
+    if ((uint32_t)key_code == 144) { // kana
+      flags |= 0x20002;
+      key_code = (krbn::key_code)135;
+    }
+    if ((uint32_t)key_code == 145) { // eisu
+      flags |= 0x20002;
+      key_code = (krbn::key_code)36;
+    }
+    logger::get_logger().info("{0} modifier {1}", (uint32_t)key_code, (uint32_t)flags);
     try {
       krbn::operation_type_post_key_struct s;
       s.key_code = key_code;
